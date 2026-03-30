@@ -4,7 +4,7 @@ import io.papermc.paperweight.tasks.RebuildGitPatches
 
 plugins {
     java // TODO java launcher tasks
-    id("io.papermc.paperweight.patcher") version "2.0.0-beta.19"
+    id("io.papermc.paperweight.patcher") version "2.0.0-SNAPSHOT"
 }
 
 paperweight {
@@ -27,6 +27,12 @@ paperweight {
             patchesDir = file("folia-api/paper-patches")
             outputDir = file("paper-api")
         }
+        patchDir("server") {
+            upstreamPath = "paper-server"
+            excludes = setOf("src/minecraft", "patches", "build.gradle.kts")
+            patchesDir = file("folia-server/paper-patches")
+            outputDir = file("paper-server")
+        }
     }
 }
 
@@ -38,7 +44,7 @@ subprojects {
 
     extensions.configure<JavaPluginExtension> {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
@@ -57,7 +63,7 @@ subprojects {
     }
     tasks.withType<JavaCompile>().configureEach  {
         options.encoding = Charsets.UTF_8.name()
-        options.release = 21
+        options.release = 25
         options.isFork = true
     }
     tasks.withType<Javadoc>().configureEach  {
