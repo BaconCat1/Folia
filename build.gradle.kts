@@ -27,6 +27,12 @@ paperweight {
             patchesDir = file("folia-api/paper-patches")
             outputDir = file("paper-api")
         }
+        patchDir("server") {
+            upstreamPath = "paper-server"
+            excludes = setOf("src/minecraft", "patches", "build.gradle.kts")
+            patchesDir = file("folia-server/paper-patches")
+            outputDir = file("paper-server")
+        }
     }
 }
 
